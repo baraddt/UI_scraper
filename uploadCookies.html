@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Cookies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md text-center">
+        <h2 class="text-xl font-semibold mb-6">Upload File cookies.json</h2>
+
+        <input type="file" id="cookiesInput"
+            class="mb-4 block w-full text-sm text-gray-600 border border-gray-300 rounded p-2" />
+
+        <button onclick="uploadCookies()"
+            class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition mb-4">
+            Upload Cookies
+        </button>
+
+        <!-- Spinner -->
+        <div id="spinner" class="hidden items-center justify-center mb-4">
+            <svg class="animate-spin h-8 w-8 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+        </div>
+
+        <p id="status" class="text-sm text-gray-700"></p>
+    </div>
+
+    <script>
+        // const baseUrl = 'http://192.168.100.161:8000';
+        const baseUrl = 'http://192.168.1.207:8000';
+
+        const spinner = document.getElementById('spinner');
+        function showSpinner(show) {
+            spinner.classList.toggle('hidden', !show);
+        }
+
+        async function uploadCookies() {
+            const cookiesInput = document.getElementById('cookiesInput');
+            const status = document.getElementById('status');
+
+            if (cookiesInput.files.length === 0) {
+                status.textContent = 'Silakan pilih file cookies.json terlebih dahulu.';
+                return;
+            }
+
+            const file = cookiesInput.files[0];
+
+            if (!file.name.endsWith('.json')) {
+                status.textContent = 'File harus berupa cookies.json';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                showSpinner(true);
+                status.textContent = 'Mengupload cookies...';
+
+                const response = await fetch(`${baseUrl}/upload-cookies`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Gagal upload cookies');
+                }
+
+                status.textContent = result.message;
+            } catch (error) {
+                console.error(error);
+                status.textContent = 'Error: ' + error.message;
+            } finally {
+                showSpinner(false);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

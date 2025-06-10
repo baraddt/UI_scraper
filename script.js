@@ -1,5 +1,6 @@
 // const baseUrl = 'http://192.168.100.161:8000';
-const baseUrl = 'http://192.168.1.207:8000';
+// const baseUrl = 'http://192.168.1.207:8000';
+const baseUrl = 'https://scraperwithplaywright-production.up.railway.app';
 
 const spinner = document.getElementById('spinner');
 let lastDownloadUrl = null;

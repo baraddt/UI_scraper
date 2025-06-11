@@ -9,33 +9,46 @@
 
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md text-center">
-        <h2 class="text-xl font-semibold mb-6">Drag Or Upload File Excel</h2>
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl grid grid-cols-2 gap-4">
 
-        <input type="file" id="fileInput"
-            class="mb-4 block w-full text-sm text-gray-600 border border-gray-300 rounded p-2" />
+        <!-- Left Box: Proses & Download -->
+        <div class="flex flex-col items-center justify-center gap-4">
+            <h2 class="text-xl font-semibold mb-6">Drag Or Upload File Excel</h2>
 
-        <div class="flex justify-center gap-4 mb-4">
-            <button onclick="uploadFile()"
-                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                Proses
-            </button>
-            <button onclick="downloadFile()"
-                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-                Download
+            <input type="file" id="fileInput"
+                class="mb-4 block w-full text-sm text-gray-600 border border-gray-300 rounded p-2" />
+
+            <div class="flex gap-4">
+                <button onclick="uploadFile()"
+                    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Proses
+                </button>
+                <button onclick="downloadFile()"
+                    class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                    Download
+                </button>
+            </div>
+
+            <!-- Spinner -->
+            <div id="spinner" class="hidden items-center justify-center mb-4">
+                <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+            </div>
+
+            <p id="status" class="text-sm text-gray-700"></p>
+        </div>
+
+        <!-- Right Box: Go to Upload Cookies -->
+        <div class="flex flex-col items-center justify-center gap-4">
+            <button onclick="window.location.href='uploadCookies.html'"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                Go to Upload Cookies
             </button>
         </div>
 
-        <!-- Spinner -->
-        <div id="spinner" class="hidden items-center justify-center mb-4">
-            <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-            </svg>
-        </div>
-
-        <p id="status" class="text-sm text-gray-700"></p>
     </div>
 
     <script src="script.js"></script>
